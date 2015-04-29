@@ -13,7 +13,22 @@ s.requires_arc          = true
 s.frameworks            = "Foundation", "ImageIO"
 s.library               = 'z'
 s.source                = { :git => "https://github.com/tahasamad/zipzap.git", :tag => s.version }
-s.source_files          = "zipzap/*.{h,m}"
-s.compiler_flags        = "-fno-objc-exceptions -std=c99"
+s.source_files          = "zipzap/*.h"
+
+s.subspec "c++" do |cpp|
+cpp.source_files        = "zipzap/*.cpp"
+cpp.compiler_flags      = "-fno-exceptions -std=c++11 -stdlib=libc++"
+end
+
+s.subspec "objc" do |objc|
+objc.source_files       = "zipzap/*.m"
+objc.compiler_flags     = "-fno-objc-exceptions -std=c99"
+end
+
+s.subspec "objcpp" do |objcpp|
+objcpp.source_files     = "zipzap/*.mm"
+objcpp.compiler_flags   = "-fno-objc-exceptions -fno-exceptions -std=c++11 -stdlib=libc++"
+end
+
 s.public_header_files   = public_header_files = "zipzap/zipzap.h", "zipzap/ZZArchive.h", "zipzap/ZZArchiveEntry.h", "zipzap/ZZConstants.h", "zipzap/ZZError.h"
 end
